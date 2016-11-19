@@ -47,7 +47,7 @@ func main() {
 		fmt.Printf("received ip address: %s\n", ip)
 
 		userHash := createHash(email, ip)
-		fmt.Printf("generated hash: %s\n", userHash)
+		fmt.Printf("generated hash: %x\n", userHash)
 
 		return nil
 	}
