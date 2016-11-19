@@ -1,11 +1,23 @@
 package main
 
 import (
+	"crypto/sha1"
 	"fmt"
 	"os"
+	"strings"
 
 	"gopkg.in/urfave/cli.v1"
 )
+
+func createHash(params ...string) string {
+	joinedParams := strings.Join(params, " ")
+
+	h := sha1.New()
+	h.Write([]byte(joinedParams))
+	byteSlice := h.Sum(nil)
+
+	return string(byteSlice)
+}
 
 func main() {
 	var email, ip string
@@ -33,6 +45,9 @@ func main() {
 
 		ip := c.String("ip-address")
 		fmt.Printf("received ip address: %s\n", ip)
+
+		userHash := createHash(email, ip)
+		fmt.Printf("generated hash: %s\n", userHash)
 
 		return nil
 	}
